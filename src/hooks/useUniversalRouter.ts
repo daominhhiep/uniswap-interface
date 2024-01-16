@@ -17,6 +17,8 @@ import { UserRejectedRequestError, WrongChainError } from 'utils/errors'
 import isZero from 'utils/isZero'
 import { didUserReject, swapErrorToUserReadableMessage } from 'utils/swapErrorToUserReadableMessage'
 
+import { SWAP_ROUTER_ADDRESSES } from '../constants/addresses'
+import { ChainId } from '../constants/chains'
 import { PermitSignature } from './usePermitAllowance'
 
 /** Thrown when gas estimation fails. This class of error usually requires an emulator to determine the root cause. */
@@ -78,9 +80,12 @@ export function useUniversalRouterSwapCallback(
           fee: options.feeOptions,
         })
 
+        const router_address =
+          chainId === ChainId.SCROLL_SEPOLIA ? SWAP_ROUTER_ADDRESSES[chainId] : UNIVERSAL_ROUTER_ADDRESS(chainId)
+
         const tx = {
           from: account,
-          to: UNIVERSAL_ROUTER_ADDRESS(chainId),
+          to: router_address,
           data,
           // TODO(https://github.com/Uniswap/universal-router-sdk/issues/113): universal-router-sdk returns a non-hexlified value.
           ...(value && !isZero(value) ? { value: toHex(value) } : {}),

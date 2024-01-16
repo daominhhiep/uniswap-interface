@@ -1,8 +1,8 @@
-import { ChainId } from '@uniswap/sdk-core'
 import { UNIVERSAL_ROUTER_ADDRESS } from '@uniswap/universal-router-sdk'
-import { isSupportedChain } from 'constants/chains'
+import { ChainId, isSupportedChain } from 'constants/chains'
 import gql from 'graphql-tag'
 
+import { SWAP_ROUTER_ADDRESSES } from '../../../constants/addresses'
 import { useNftUniversalRouterAddressQuery } from '../__generated__/types-and-hooks'
 
 gql`
@@ -18,6 +18,9 @@ export function getURAddress(chainId?: number, nftURAddress?: string): string | 
   // if mainnet and on NFT flow, use the contract address returned by GQL
   if (chainId === ChainId.MAINNET) {
     return nftURAddress ?? UNIVERSAL_ROUTER_ADDRESS(chainId)
+  }
+  if (chainId === ChainId.SCROLL_SEPOLIA) {
+    return nftURAddress ?? SWAP_ROUTER_ADDRESSES[chainId]
   }
   return isSupportedChain(chainId) ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined
 }

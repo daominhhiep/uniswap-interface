@@ -1,8 +1,9 @@
 import { MixedRouteSDK, ONE, Protocol, Trade } from '@uniswap/router-sdk'
-import { ChainId, Currency, CurrencyAmount, Fraction, Percent, Token, TradeType } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Fraction, Percent, Token, TradeType } from '@uniswap/sdk-core'
 import { DutchOrderInfo, DutchOrderInfoJSON, DutchOrderTrade as IDutchOrderTrade } from '@uniswap/uniswapx-sdk'
 import { Route as V2Route } from '@uniswap/v2-sdk'
 import { Route as V3Route } from '@uniswap/v3-sdk'
+import {ChainId} from "../../constants/chains";
 
 export enum TradeState {
   LOADING,
@@ -87,6 +88,25 @@ export type V2PoolInRoute = {
   // not used in the interface
   // avoid returning it from the client-side smart-order-router
   address?: string
+}
+
+export interface GetQuoteResult {
+  quoteId?: string
+  blockNumber: string
+  amount: string
+  amountDecimals: string
+  gasPriceWei: string
+  gasUseEstimate: string
+  gasUseEstimateQuote: string
+  gasUseEstimateQuoteDecimals: string
+  gasUseEstimateUSD: string
+  methodParameters?: { calldata: string; value: string }
+  quote: string
+  quoteDecimals: string
+  quoteGasAdjusted: string
+  quoteGasAdjustedDecimals: string
+  route: Array<(V3PoolInRoute | V2PoolInRoute)[]>
+  routeString: string
 }
 
 export interface ClassicQuoteData {

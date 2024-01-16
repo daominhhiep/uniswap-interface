@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@uniswap/sdk-core'
+import { Token } from '@uniswap/sdk-core'
 import { Pool, Position } from '@uniswap/v3-sdk'
 import { useAllTokensMultichain } from 'hooks/Tokens'
 import { atom, useAtom } from 'jotai'
@@ -10,6 +10,7 @@ import { SerializedToken } from 'state/user/types'
 import { PositionDetails } from 'types/position'
 import { buildCurrencyKey, currencyKey } from 'utils/currencyKey'
 
+import { ChainId } from '../../../../constants/chains'
 import { getTokensAsync } from './getTokensAsync'
 import { useInterfaceMulticallContracts } from './hooks'
 

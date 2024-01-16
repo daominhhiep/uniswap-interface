@@ -2,14 +2,6 @@
 directive @defer on FIELD
 
 """
-Tells the service this field/object has access authorized by a Cognito User Pools token.
-"""
-directive @aws_cognito_user_pools(
-  """List of cognito user pool groups which have access on this field"""
-  cognito_groups: [String]
-) on OBJECT | FIELD_DEFINITION
-
-"""
 Tells the service which subscriptions will be published to when this mutation is
 called. This directive is deprecated use @aws_susbscribe directive instead.
 """
@@ -20,15 +12,29 @@ directive @aws_publish(
   subscriptions: [String]
 ) on FIELD_DEFINITION
 
+"""Directs the schema to enforce authorization on a field"""
+directive @aws_auth(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by an API key.
+"""
+directive @aws_api_key on OBJECT | FIELD_DEFINITION
+
 """
 Tells the service this field/object has access authorized by sigv4 signing.
 """
 directive @aws_iam on OBJECT | FIELD_DEFINITION
 
 """
-Tells the service this field/object has access authorized by an API key.
+Tells the service this field/object has access authorized by a Cognito User Pools token.
 """
-directive @aws_api_key on OBJECT | FIELD_DEFINITION
+directive @aws_cognito_user_pools(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on OBJECT | FIELD_DEFINITION
 
 """
 Tells the service this field/object has access authorized by an OIDC token.
@@ -48,19 +54,20 @@ Tells the service this field/object has access authorized by a Lambda Authorizer
 """
 directive @aws_lambda on OBJECT | FIELD_DEFINITION
 
-"""Directs the schema to enforce authorization on a field"""
-directive @aws_auth(
-  """List of cognito user pool groups which have access on this field"""
-  cognito_groups: [String]
-) on FIELD_DEFINITION
-
+"""
+  Types, unions, and inputs (alphabetized):
+ These are colocated to highlight the relationship between some types and their inputs.
+"""
 union ActivityDetails = TransactionDetails | SwapOrderDetails
 
 input ActivityDetailsInput {
-  transaction: TransactionDetailsInput
+  transactionDetails: TransactionDetailsInput
 }
 
-"""  deprecated and replaced with TransactionType, please do not use this"""
+"""
+  Enums (alphabetized):
+ deprecated and replaced with TransactionType, please do not use this
+"""
 enum ActivityType {
   APPROVE
   CANCEL
@@ -98,8 +105,23 @@ type AmountChange {
 }
 
 input AmountInput {
-  currency: Currency!
+  currency: Currency
   value: Float!
+}
+
+type ApplicationContract implements IContract {
+  id: ID!
+  chain: Chain!
+  address: String!
+  name: String
+  icon: Image
+}
+
+input ApplicationContractInput {
+  chain: Chain!
+  address: String!
+  name: String
+  icon: ImageInput
 }
 
 type AssetActivity {
@@ -118,6 +140,11 @@ input AssetActivityInput {
   timestamp: Int!
   chain: Chain!
   details: ActivityDetailsInput!
+}
+
+enum AssetActivitySwitch {
+  ALTERNATE
+  LEGACY
 }
 
 union AssetChange = TokenTransfer | NftTransfer | TokenApproval | NftApproval | NftApproveForAll
@@ -169,6 +196,7 @@ enum Currency {
   AUD
   BRL
   CAD
+  CNY
   ETH
   EUR
   GBP
@@ -188,8 +216,41 @@ enum Currency {
   VND
 }
 
+input CurrencyAmountInput {
+  currency: Currency!
+  value: Float!
+}
+
+type DescriptionTranslations {
+  id: ID!
+  descriptionZhHans: String
+  descriptionZhHant: String
+  descriptionNlNl: String
+  descriptionEnUs: String
+  descriptionFrFr: String
+  descriptionHiIn: String
+  descriptionIdId: String
+  descriptionJaJp: String
+  descriptionMsMy: String
+  descriptionPtPt: String
+  descriptionRuRu: String
+  descriptionEsEs: String
+  descriptionEs419: String
+  descriptionEsUs: String
+  descriptionThTh: String
+  descriptionTrTr: String
+  descriptionUkUa: String
+  descriptionUrPk: String
+  descriptionViVn: String
+}
+
 type Dimensions {
   id: ID!
+  height: Float
+  width: Float
+}
+
+input DimensionsInput {
   height: Float
   width: Float
 }
@@ -199,7 +260,9 @@ enum HighLow {
   LOW
 }
 
+"""  FIVE_MINUTE is only supported for TokenMarket.pricePercentChange"""
 enum HistoryDuration {
+  FIVE_MINUTE
   HOUR
   DAY
   WEEK
@@ -208,6 +271,7 @@ enum HistoryDuration {
   MAX
 }
 
+"""  Interfaces (alphabetized):"""
 interface IAmount {
   currency: Currency
   value: Float!
@@ -224,6 +288,11 @@ type Image {
   dimensions: Dimensions
 }
 
+input ImageInput {
+  url: String!
+  dimensions: DimensionsInput
+}
+
 enum MediaType {
   VIDEO
   IMAGE
@@ -233,6 +302,8 @@ enum MediaType {
 
 type Mutation {
   assetActivity(input: AssetActivityInput!): AssetActivity!
+  heartbeat(subscriptionId: ID!, type: SubscriptionType!): Status!
+  unsubscribe(subscriptionId: ID!, type: SubscriptionType!): Status!
 }
 
 type NftActivity {
@@ -285,6 +356,7 @@ type NftApproval {
 }
 
 input NftApprovalInput {
+  nftStandard: NftStandard!
   asset: NftAssetInput!
   approvedAddress: String!
 }
@@ -300,6 +372,7 @@ type NftApproveForAll {
 }
 
 input NftApproveForAllInput {
+  nftStandard: NftStandard!
   asset: NftAssetInput!
   operatorAddress: String!
   approved: Boolean!
@@ -347,8 +420,17 @@ type NftAssetEdge {
 }
 
 input NftAssetInput {
-  address: String!
+  collection: NftCollectionInput
+  description: String
+  animationUrl: String
+  image: ImageInput
+  thumbnail: ImageInput
+  smallImage: ImageInput
+  name: String
+  nftContract: NftContractInput
   tokenId: String!
+  mediaType: MediaType
+  isSpam: Boolean
 }
 
 type NftAssetRarity {
@@ -394,6 +476,11 @@ type NftBalance {
   quantity: Int
 }
 
+input NftBalanceAssetInput {
+  address: String!
+  tokenId: String!
+}
+
 type NftBalanceConnection {
   pageInfo: PageInfo!
   edges: [NftBalanceEdge!]!
@@ -406,7 +493,7 @@ type NftBalanceEdge {
 
 input NftBalancesFilterInput {
   addresses: [String!]
-  assets: [NftAssetInput!]
+  assets: [NftBalanceAssetInput!]
   filterSpam: Boolean
 }
 
@@ -465,6 +552,12 @@ type NftCollectionEdge {
   node: NftCollection!
 }
 
+input NftCollectionInput {
+  collectionId: String!
+  name: String
+  nftContracts: [NftContractInput!]
+}
+
 type NftCollectionMarket {
   id: ID!
   nftContracts: [NftContract!]
@@ -511,6 +604,15 @@ type NftCollectionTraitStats {
 
 type NftContract implements IContract {
   id: ID!
+  address: String!
+  chain: Chain!
+  name: String
+  standard: NftStandard
+  symbol: String
+  totalSupply: Int
+}
+
+input NftContractInput {
   address: String!
   chain: Chain!
   name: String
@@ -629,6 +731,7 @@ type NftTransfer {
 }
 
 input NftTransferInput {
+  nftStandard: NftStandard!
   asset: NftAssetInput!
   sender: String!
   recipient: String!
@@ -695,11 +798,44 @@ type Portfolio {
 
   """  TODO: (michael.zhang) replace with paginated query"""
   nftBalances: [NftBalance]
-  assetActivities(page: Int, pageSize: Int, includeOffChain: Boolean, chains: [Chain!]): [AssetActivity]
+  assetActivities(page: Int, pageSize: Int, includeOffChain: Boolean, chains: [Chain!], _fs: AssetActivitySwitch): [AssetActivity]
+}
+
+"""  Specify how the portfolio value should be calculated for each `ownerAddress`.
+"""
+input PortfolioValueModifier {
+  ownerAddress: String!
+  tokenIncludeOverrides: [ContractInput!]
+  tokenExcludeOverrides: [ContractInput!]
+  includeSmallBalances: Boolean
+  includeSpamTokens: Boolean
+}
+
+enum PriceSource {
+  SUBGRAPH_V2
+  SUBGRAPH_V3
+}
+
+enum ProtocolVersion {
+  V2
+  V3
+}
+
+type PushNotification {
+  id: ID!
+  contents: AWSJSON!
+  notifyAddress: String!
+  viewerHeader: AWSJSON!
+  signerHeader: AWSJSON!
 }
 
 type Query {
-  convert(fromAmount: AmountInput!, toCurrency: Currency!): Amount
+  """  returns top v3 pools sorted by total value locked in desc order"""
+  topV3Pools(chain: Chain!, first: Int!, tvlCursor: Float, tokenFilter: String): [V3Pool!]
+
+  """  returns top v2 pairs sorted by total value locked in desc order"""
+  topV2Pairs(chain: Chain!, first: Int!, tvlCursor: Float, tokenFilter: String): [V2Pair!]
+  convert(fromAmount: CurrencyAmountInput!, toCurrency: Currency!): Amount
   tokens(contracts: [ContractInput!]!): [Token]
 
   """
@@ -710,7 +846,7 @@ type Query {
   token(chain: Chain!, address: String): Token
   tokenProjects(contracts: [ContractInput!]!): [TokenProject]
   searchTokens(searchQuery: String!, chains: [Chain!]): [Token]
-  portfolios(ownerAddresses: [String!]!, chains: [Chain!], lookupTokens: [ContractInput!]): [Portfolio]
+  portfolios(ownerAddresses: [String!]!, chains: [Chain!], lookupTokens: [ContractInput!], valueModifiers: [PortfolioValueModifier!]): [Portfolio]
   topTokens(chain: Chain, page: Int, pageSize: Int, orderBy: TokenSortableField): [Token]
   topCollections(chains: [Chain!], orderBy: CollectionSortableField, duration: HistoryDuration, after: String, first: Int, cursor: String, limit: Int): NftCollectionConnection
   nftAssets(chain: Chain, address: String!, orderBy: NftAssetSortableField, asc: Boolean, filter: NftAssetsFilterInput, after: String, first: Int, before: String, last: Int): NftAssetConnection
@@ -719,6 +855,7 @@ type Query {
   nftRoute(chain: Chain, senderAddress: String!, nftTrades: [NftTradeInput!]!, tokenTrades: [TokenTradeInput!]): NftRouteResponse
   nftActivity(chain: Chain, filter: NftActivityFilterInput, after: String, first: Int): NftActivityConnection
   nftCollectionBalances(chain: Chain, ownerAddress: String!, after: String, first: Int, before: String, last: Int): NftCollectionBalanceConnection
+  transactionNotification(chain: Chain!, address: String!, transactionHash: String!): TransactionNotification
 }
 
 enum SafetyLevel {
@@ -728,19 +865,29 @@ enum SafetyLevel {
   BLOCKED
 }
 
+type Status {
+  success: Boolean!
+}
+
 type Subscription {
   onAssetActivity(subscriptionId: ID!, addresses: [String!]!): AssetActivity
+}
+
+enum SubscriptionType {
+  ASSET_ACTIVITY
 }
 
 type SwapOrderDetails {
   id: ID!
   offerer: String!
   hash: String!
-  status: SwapOrderStatus!
+  status: SwapOrderStatus! @deprecated(reason: "use swapOrderStatus to disambiguate from transactionStatus")
+  swapOrderStatus: SwapOrderStatus!
   inputToken: Token!
   inputTokenQuantity: String!
   outputToken: Token!
   outputTokenQuantity: String!
+  expiry: Int!
 }
 
 enum SwapOrderStatus {
@@ -791,6 +938,7 @@ type TokenApproval {
 }
 
 input TokenApprovalInput {
+  tokenStandard: TokenStandard!
   asset: TokenAssetInput!
   approvedAddress: String!
   quantity: String!
@@ -798,7 +946,11 @@ input TokenApprovalInput {
 
 input TokenAssetInput {
   chain: Chain!
-  address: String!
+  address: String
+  standard: TokenStandard
+  decimals: Int
+  name: String
+  symbol: String
 }
 
 type TokenBalance {
@@ -810,6 +962,7 @@ type TokenBalance {
   ownerAddress: String!
   token: Token
   tokenProjectMarket: TokenProjectMarket
+  isHidden: Boolean
 }
 
 input TokenInput {
@@ -823,7 +976,20 @@ type TokenMarket {
   id: ID!
   token: Token!
   price: Amount
+  priceSource: PriceSource!
   totalValueLocked: Amount
+  fullyDilutedValuation: Amount
+
+  """
+    historicalVolume returns different granularities of data depending on the requested duration
+   - if duration === HOUR  , return 5min volume
+   - if duration === DAY   , return hourly volume
+   - if duration === WEEK  , return 6hr volume
+   - if duration === MONTH , return daily volume
+   - if duration === YEAR  , return weekly volume
+   - if duration === MAX   , return monthly volume
+  """
+  historicalVolume(duration: HistoryDuration!): [TimestampedAmount]
   volume(duration: HistoryDuration!): Amount
   pricePercentChange(duration: HistoryDuration!): Amount
   priceHistory(duration: HistoryDuration!): [TimestampedAmount]
@@ -835,6 +1001,7 @@ type TokenProject {
   name: String
   tokens: [Token!]!
   description: String
+  descriptionTranslations: DescriptionTranslations
   twitterName: String
   homepageUrl: String
   logoUrl: String @deprecated(reason: "use logo")
@@ -852,6 +1019,7 @@ type TokenProjectMarket {
   currency: Currency!
   price: Amount
   marketCap: Amount
+  fullyDilutedValuation: Amount
   pricePercentChange24h: Amount
   priceHigh52w: Amount
   priceLow52w: Amount
@@ -909,6 +1077,7 @@ type TokenTransfer {
 }
 
 input TokenTransferInput {
+  tokenStandard: TokenStandard!
   asset: TokenAssetInput!
   sender: String!
   recipient: String!
@@ -941,24 +1110,34 @@ type TransactionDetails {
   from: String!
   to: String!
   hash: String!
-  status: TransactionStatus!
+  status: TransactionStatus! @deprecated(reason: "use transactionStatus to disambiguate from swapOrderStatus")
+  transactionStatus: TransactionStatus!
   nonce: Int!
+  application: ApplicationContract
 }
 
 input TransactionDetailsInput {
   type: TransactionType!
-  assetChanges: [AssetChangeInput!]!
+  assetChanges: [AssetChangeInput]!
   from: String!
   to: String!
   hash: String!
-  status: TransactionStatus!
+  status: TransactionStatus
+  transactionStatus: TransactionStatus!
   nonce: Int!
+  application: ApplicationContractInput
 }
 
 enum TransactionDirection {
   IN
   OUT
   SELF
+}
+
+type TransactionNotification {
+  id: ID!
+  hash: String!
+  push: [PushNotification!]!
 }
 
 enum TransactionStatus {
@@ -984,5 +1163,36 @@ enum TransactionType {
   UNKNOWN
   UNSTAKE
   WITHDRAW
+}
+
+type V2Pair {
+  id: ID!
+  protocolVersion: ProtocolVersion!
+  chain: Chain!
+  address: String!
+  createdAtTimestamp: Int
+  totalLiquidity: Amount
+  token0: Token
+  token0Supply: Float
+  token1: Token
+  token1Supply: Float
+  txCount: Int
+  cumulativeVolume(duration: HistoryDuration): Amount
+}
+
+type V3Pool {
+  id: ID!
+  protocolVersion: ProtocolVersion!
+  chain: Chain!
+  address: String!
+  createdAtTimestamp: Int
+  totalLiquidity: Amount
+  feeTier: Float
+  token0: Token
+  token0Supply: Float
+  token1: Token
+  token1Supply: Float
+  txCount: Int
+  cumulativeVolume(duration: HistoryDuration): Amount
 }
 

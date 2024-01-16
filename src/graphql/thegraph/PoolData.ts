@@ -1,9 +1,10 @@
-import { ChainId } from '@uniswap/sdk-core'
+
 import gql from 'graphql-tag'
 import { useMemo } from 'react'
 
 import { usePoolDataQuery } from './__generated__/types-and-hooks'
 import { chainToApolloClient } from './apollo'
+import {ChainId} from "../../constants/chains";
 
 gql`
   query PoolData($poolId: [ID!]) {

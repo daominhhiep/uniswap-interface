@@ -1,7 +1,7 @@
-import { ChainId } from '@uniswap/sdk-core'
 import { BRIDGED_USDC_ARBITRUM, DAI, DAI_ARBITRUM_ONE, USDC_MAINNET } from 'constants/tokens'
 import { render } from 'test-utils/render'
 
+import { ChainId } from '../../../constants/chains'
 import { PortfolioLogo } from './PortfolioLogo'
 
 describe('PortfolioLogo', () => {

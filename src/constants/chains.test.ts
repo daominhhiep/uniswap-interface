@@ -1,6 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core'
-
-import { getChainPriority } from './chains'
+import {ChainId, getChainPriority } from './chains'
 
 // Define an array of test cases with chainId and expected priority
 const chainPriorityTestCases: [ChainId, number][] = [

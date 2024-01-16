@@ -1,10 +1,11 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { ChainId, WETH9 } from '@uniswap/sdk-core'
+import { WETH9 } from '@uniswap/sdk-core'
 import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk'
 import { USDC_MAINNET } from 'constants/tokens'
 import { mocked } from 'test-utils/mocked'
 import { render } from 'test-utils/render'
 
+import { ChainId } from '../../../../constants/chains'
 import Pools from '.'
 import useMultiChainPositions from './useMultiChainPositions'
 

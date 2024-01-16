@@ -1,15 +1,6 @@
 import { Contract } from '@ethersproject/contracts'
 import { InterfaceEventName } from '@uniswap/analytics-events'
-import {
-  ARGENT_WALLET_DETECTOR_ADDRESS,
-  ChainId,
-  ENS_REGISTRAR_ADDRESSES,
-  MULTICALL_ADDRESSES,
-  NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
-  TICK_LENS_ADDRESSES,
-  V2_ROUTER_ADDRESS,
-  V3_MIGRATOR_ADDRESSES,
-} from '@uniswap/sdk-core'
+import { ARGENT_WALLET_DETECTOR_ADDRESS, ENS_REGISTRAR_ADDRESSES, V2_ROUTER_ADDRESS } from '@uniswap/sdk-core'
 import IUniswapV2PairJson from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 import IUniswapV2Router02Json from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
 import TickLensJson from '@uniswap/v3-periphery/artifacts/contracts/lens/TickLens.sol/TickLens.json'
@@ -34,6 +25,14 @@ import { useEffect, useMemo } from 'react'
 import { NonfungiblePositionManager, TickLens, UniswapInterfaceMulticall } from 'types/v3'
 import { V3Migrator } from 'types/v3/V3Migrator'
 import { getContract } from 'utils'
+
+import {
+  MULTICALL_ADDRESSES,
+  NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
+  TICK_LENS_ADDRESSES,
+  V3_MIGRATOR_ADDRESSES,
+} from '../constants/addresses'
+import { ChainId } from '../constants/chains'
 
 const { abi: IUniswapV2PairABI } = IUniswapV2PairJson
 const { abi: IUniswapV2Router02ABI } = IUniswapV2Router02Json

@@ -1,4 +1,4 @@
-import { ChainId, Token, TradeType as MockTradeType } from '@uniswap/sdk-core'
+import { Token, TradeType as MockTradeType } from '@uniswap/sdk-core'
 import { PERMIT2_ADDRESS } from '@uniswap/universal-router-sdk'
 import { DAI as MockDAI, nativeOnChain, USDC_MAINNET as MockUSDC_MAINNET, USDT as MockUSDT } from 'constants/tokens'
 import { TransactionStatus as MockTxStatus } from 'graphql/data/__generated__/types-and-hooks'
@@ -16,6 +16,7 @@ import { useFormatter } from 'utils/formatNumbers'
 import { UniswapXOrderStatus } from '../../../../lib/hooks/orders/types'
 import { SignatureDetails, SignatureType } from '../../../../state/signatures/types'
 import { signatureToActivity, transactionToActivity, useLocalActivities } from './parseLocal'
+import {ChainId} from "../../../../constants/chains";
 
 function mockSwapInfo(
   type: MockTradeType,

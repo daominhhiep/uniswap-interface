@@ -1,6 +1,6 @@
-import { ChainId, SUPPORTED_CHAINS } from '@uniswap/sdk-core'
 import { render } from 'test-utils/render'
 
+import { ChainId, SUPPORTED_CHAINS } from '../../constants/chains'
 import ChainSelectorRow from './ChainSelectorRow'
 
 describe('ChainSelectorRow', () => {

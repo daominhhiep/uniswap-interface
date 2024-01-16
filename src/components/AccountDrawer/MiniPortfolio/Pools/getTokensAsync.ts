@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@uniswap/sdk-core'
+import { Token } from '@uniswap/sdk-core'
 import ERC20_ABI from 'abis/erc20.json'
 import { Erc20Interface } from 'abis/types/Erc20'
 import { Erc20Bytes32Interface } from 'abis/types/Erc20Bytes32'
@@ -8,6 +8,8 @@ import { UniswapInterfaceMulticall } from 'types/v3'
 import { isAddress } from 'utils'
 import { arrayToSlices } from 'utils/arrays'
 import { buildCurrencyKey, CurrencyKey, currencyKey } from 'utils/currencyKey'
+
+import { ChainId } from '../../../../constants/chains'
 
 type TokenMap = { [address: string]: Token | undefined }
 export type Call = { target: string; callData: string; gasLimit: number }

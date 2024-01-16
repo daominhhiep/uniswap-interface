@@ -18,7 +18,8 @@ import styled from 'styled-components'
 import { EllipsisStyle, ThemedText } from 'theme'
 import { useFormatter } from 'utils/formatNumbers'
 import { ExplorerDataType, getExplorerLink } from 'utils/getExplorerLink'
-import {ChainId} from "../../constants/chains";
+
+import { ChainId } from '../../constants/chains'
 
 const StyledClose = styled(X)<{ $padding: number }>`
   position: absolute;

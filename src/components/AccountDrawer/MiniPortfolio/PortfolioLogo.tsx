@@ -9,8 +9,8 @@ import useENSAvatar from 'hooks/useENSAvatar'
 import React from 'react'
 import { Loader } from 'react-feather'
 import styled from 'styled-components'
+import {ChainId} from "../../../constants/chains";
 
-import { ChainId } from '../../../constants/chains'
 
 const UnknownContract = styled(UnknownStatus)`
   color: ${({ theme }) => theme.neutral2};

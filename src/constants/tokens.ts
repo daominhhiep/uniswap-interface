@@ -558,6 +558,6 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: s
     [ChainId.AVALANCHE]: USDC_AVALANCHE.address,
     [ChainId.TAIKO_JOLNIR]: USDC_TAIKO_JOLNIR.address,
     [ChainId.TAIKO_KATLA]: USDC_TAIKO_KATLA.address,
-    // [ChainId.SCROLL_SEPOLIA]: USDC_TAIKO_KATLA.address,
+    [ChainId.SCROLL_SEPOLIA]: '0x319f8d747b0283f027717db61c424bc41b7bae8c',
   },
 }

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro'
-import { ChainId } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { ButtonPrimary } from 'components/Button'
 import { getChainInfo } from 'constants/chainInfo'
@@ -9,6 +8,7 @@ import styled from 'styled-components'
 import { ThemedText } from 'theme'
 
 import { ReactComponent as EyeIcon } from '../../../assets/svg/eye.svg'
+import { ChainId } from '../../../constants/chains'
 
 const InvalidDetailsContainer = styled.div`
   padding-top: 128px;

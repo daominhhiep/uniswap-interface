@@ -1,12 +1,13 @@
 import { QueryResult } from '@apollo/client'
 import * as Sentry from '@sentry/react'
-import { ChainId, Currency, Token } from '@uniswap/sdk-core'
+import { Currency, Token } from '@uniswap/sdk-core'
 import { AVERAGE_L1_BLOCK_TIME } from 'constants/chainInfo'
 import { NATIVE_CHAIN_ID, nativeOnChain, WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import ms from 'ms'
 import { useEffect } from 'react'
 import { getNativeTokenDBAddress } from 'utils/nativeTokens'
 
+import { ChainId } from '../../constants/chains'
 import { Chain, ContractInput, HistoryDuration, TokenStandard } from './__generated__/types-and-hooks'
 
 export enum PollingInterval {

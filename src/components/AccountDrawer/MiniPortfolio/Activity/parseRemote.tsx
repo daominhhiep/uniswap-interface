@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro'
-import { ChainId, Currency, NONFUNGIBLE_POSITION_MANAGER_ADDRESSES, UNI_ADDRESSES } from '@uniswap/sdk-core'
+import { Currency, UNI_ADDRESSES } from '@uniswap/sdk-core'
 import UniswapXBolt from 'assets/svg/bolt.svg'
 import moonpayLogoSrc from 'assets/svg/moonpay.svg'
+import { NONFUNGIBLE_POSITION_MANAGER_ADDRESSES } from 'constants/addresses'
 import { nativeOnChain } from 'constants/tokens'
 import {
   ActivityType,
@@ -23,6 +24,7 @@ import { useEffect, useState } from 'react'
 import { isAddress } from 'utils'
 import { NumberType, useFormatter } from 'utils/formatNumbers'
 
+import { ChainId } from '../../../../constants/chains'
 import { MOONPAY_SENDER_ADDRESSES, OrderStatusTable, OrderTextTable } from '../constants'
 import { Activity } from './types'
 

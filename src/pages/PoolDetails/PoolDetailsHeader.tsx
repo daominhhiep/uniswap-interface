@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { ChainId, Currency } from '@uniswap/sdk-core'
+import { Currency } from '@uniswap/sdk-core'
 import blankTokenUrl from 'assets/svg/blank_token.svg'
 import Column from 'components/Column'
 import Row from 'components/Row'
@@ -13,6 +13,7 @@ import styled from 'styled-components'
 import { ClickableStyle, ThemedText } from 'theme'
 import { shortenAddress } from 'utils'
 
+import { ChainId } from '../../constants/chains'
 import { ReversedArrowsIcon } from './icons'
 
 const HeaderColumn = styled(Column)`
