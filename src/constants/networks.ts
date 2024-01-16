@@ -1,4 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core'
+import { ChainId } from 'constants/chains'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
 if (typeof INFURA_KEY === 'undefined') {
@@ -117,6 +117,7 @@ export const FALLBACK_URLS = {
   ],
   [ChainId.TAIKO_JOLNIR]: ['https://rpc.jolnir.taiko.xyz'],
   [ChainId.TAIKO_KATLA]: ['https://rpc.katla.taiko.xyz'],
+  [ChainId.SCROLL_SEPOLIA]: ['https://sepolia-rpc.scroll.io'],
 }
 
 /**
@@ -152,4 +153,5 @@ export const RPC_URLS = {
   [ChainId.BASE]: [`https://base-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.BASE]],
   [ChainId.TAIKO_JOLNIR]: FALLBACK_URLS[ChainId.TAIKO_JOLNIR],
   [ChainId.TAIKO_KATLA]: FALLBACK_URLS[ChainId.TAIKO_KATLA],
+  [ChainId.SCROLL_SEPOLIA]: FALLBACK_URLS[ChainId.SCROLL_SEPOLIA],
 }

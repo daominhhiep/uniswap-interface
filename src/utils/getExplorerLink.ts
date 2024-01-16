@@ -1,4 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core'
+import { ChainId } from 'constants/chains'
 
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [ChainId.MAINNET]: 'https://etherscan.io',
@@ -15,6 +15,7 @@ const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [ChainId.BASE]: 'https://basescan.org',
   [ChainId.TAIKO_JOLNIR]: 'https://explorer.jolnir.taiko.xyz',
   [ChainId.TAIKO_KATLA]: 'https://explorer.katla.taiko.xyz',
+  [ChainId.SCROLL_SEPOLIA]: 'https://sepolia.scrollscan.dev',
 }
 
 export enum ExplorerDataType {

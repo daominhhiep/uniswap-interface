@@ -1,4 +1,3 @@
-import { ChainId } from '@uniswap/sdk-core'
 import bnbCircleLogoUrl from 'assets/images/bnbCircle.svg'
 import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
 import polygonCircleLogoUrl from 'assets/images/polygonCircle.png'
@@ -16,11 +15,21 @@ import optimismLogoUrl from 'assets/svg/optimistic_ethereum.svg'
 import polygonSquareLogoUrl from 'assets/svg/polygon_square_logo.svg'
 import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
 import taikoLogo from 'assets/svg/taiko.svg'
+import scrollLogo from 'assets/svg/scroll_logo.svg'
+import { ChainId } from 'constants/chains'
 import ms from 'ms'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, AVALANCHE_LIST, BASE_LIST, CELO_LIST, OPTIMISM_LIST, PLASMA_BNB_LIST } from './lists'
+import {
+  ARBITRUM_LIST,
+  AVALANCHE_LIST,
+  BASE_LIST,
+  CELO_LIST,
+  OPTIMISM_LIST,
+  PLASMA_BNB_LIST,
+  SCROLL_SEPOLIA_LIST
+} from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms(`12s`)
 
@@ -291,6 +300,22 @@ const CHAIN_INFO: ChainInfoMap = {
     squareLogoUrl: taikoLogo,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     color: darkTheme.chain_167008,
+  },
+  [ChainId.SCROLL_SEPOLIA]: {
+    networkType: NetworkType.L2,
+    blockWaitMsBeforeWarning: ms(`10m`),
+    bridge: 'https://sepolia.scroll.io/bridge',
+    defaultListUrl: SCROLL_SEPOLIA_LIST,
+    docs: 'https://docs.scroll.io/en/home/',
+    explorer: 'https://sepolia.scrollscan.dev/',
+    infoLink: 'https://scroll.io/',
+    label: 'Scroll Sepolia',
+    logoUrl: scrollLogo,
+    statusPage: 'https://scroll.io/',
+    circleLogoUrl: scrollLogo,
+    squareLogoUrl: scrollLogo,
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    color: darkTheme.chain_5,
   },
 } as const
 

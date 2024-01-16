@@ -1,10 +1,9 @@
 import { t } from '@lingui/macro'
-import { ChainId } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { showTestnetsAtom } from 'components/AccountDrawer/TestnetsToggle'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { getChainInfo } from 'constants/chainInfo'
-import { getChainPriority, TESTNET_CHAIN_IDS } from 'constants/chains'
+import { ChainId, getChainPriority, TESTNET_CHAIN_IDS } from 'constants/chains'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useSelectChain from 'hooks/useSelectChain'
 import useSyncChainQuery from 'hooks/useSyncChainQuery'
@@ -21,7 +20,7 @@ import * as styles from './ChainSelector.css'
 import ChainSelectorRow from './ChainSelectorRow'
 import { NavDropdown } from './NavDropdown'
 
-const NETWORK_SELECTOR_CHAINS = [ChainId.TAIKO_JOLNIR, ChainId.TAIKO_KATLA]
+const NETWORK_SELECTOR_CHAINS = [ChainId.TAIKO_JOLNIR, ChainId.TAIKO_KATLA, ChainId.SCROLL_SEPOLIA]
 
 interface ChainSelectorProps {
   leftAlign?: boolean

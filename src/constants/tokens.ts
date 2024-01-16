@@ -1,5 +1,5 @@
-import { ChainId, Currency, Ether, NativeCurrency, Token, UNI_ADDRESSES, WETH9 } from '@uniswap/sdk-core'
-
+import { Currency, Ether, NativeCurrency, Token, UNI_ADDRESSES, WETH9 } from '@uniswap/sdk-core'
+import { ChainId } from 'constants/chains'
 import invariant from 'tiny-invariant'
 
 export const NATIVE_CHAIN_ID = 'NATIVE'
@@ -277,6 +277,14 @@ export const CEUR_CELO_ALFAJORES = new Token(
   'Celo Euro Stablecoin'
 )
 
+export const GHO_SCROLL_SEPOLIA = new Token(
+  ChainId.SCROLL_SEPOLIA,
+  '0xD9692f1748aFEe00FACE2da35242417dd05a8615',
+  18,
+  'GHO',
+  'Gho Token'
+)
+
 export const USDC_BSC = new Token(ChainId.BNB, '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', 18, 'USDC', 'USDC')
 export const USDT_BSC = new Token(ChainId.BNB, '0x55d398326f99059fF775485246999027B3197955', 18, 'USDT', 'USDT')
 export const ETH_BSC = new Token(ChainId.BNB, '0x2170Ed0880ac9A755fd29B2688956BD959F933F8', 18, 'ETH', 'Ethereum')
@@ -403,6 +411,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     18,
     'WETH',
     'Wrapped ETH'
+  ),
+  [ChainId.SCROLL_SEPOLIA]: new Token(
+    ChainId.SCROLL_SEPOLIA,
+    '0x5300000000000000000000000000000000000004',
+    18,
+    'WETH',
+    'Wrapped Ether'
   ),
 }
 
@@ -543,5 +558,6 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: s
     [ChainId.AVALANCHE]: USDC_AVALANCHE.address,
     [ChainId.TAIKO_JOLNIR]: USDC_TAIKO_JOLNIR.address,
     [ChainId.TAIKO_KATLA]: USDC_TAIKO_KATLA.address,
+    // [ChainId.SCROLL_SEPOLIA]: USDC_TAIKO_KATLA.address,
   },
 }

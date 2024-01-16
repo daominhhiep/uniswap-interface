@@ -3,7 +3,7 @@ import { deepCopy } from '@ethersproject/properties'
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { StaticJsonRpcProvider } from '@ethersproject/providers'
 import { isPlain } from '@reduxjs/toolkit'
-import { ChainId } from '@uniswap/sdk-core'
+import { ChainId } from 'constants/chains'
 
 import { AVERAGE_L1_BLOCK_TIME } from './chainInfo'
 import { CHAIN_IDS_TO_NAMES, SupportedInterfaceChain } from './chains'
@@ -74,4 +74,5 @@ export const RPC_PROVIDERS: { [key in SupportedInterfaceChain]: StaticJsonRpcPro
   [ChainId.BASE]: new AppJsonRpcProvider(ChainId.BASE),
   [ChainId.TAIKO_JOLNIR]: new AppJsonRpcProvider(ChainId.TAIKO_JOLNIR),
   [ChainId.TAIKO_KATLA]: new AppJsonRpcProvider(ChainId.TAIKO_KATLA),
+  [ChainId.SCROLL_SEPOLIA]: new AppJsonRpcProvider(ChainId.SCROLL_SEPOLIA),
 }

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { ChainId } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { getChainInfo } from 'constants/chainInfo'
+import { ChainId } from 'constants/chains'
 import { AlertTriangle } from 'react-feather'
 import { ArrowUpRight } from 'react-feather'
 import styled from 'styled-components'
@@ -43,6 +43,7 @@ const SHOULD_SHOW_ALERT = {
   // [ChainId.BASE]: true,
   [ChainId.TAIKO_JOLNIR]: true,
   [ChainId.TAIKO_KATLA]: true,
+  [ChainId.SCROLL_SEPOLIA]: true,
 }
 
 type NetworkAlertChains = keyof typeof SHOULD_SHOW_ALERT
@@ -55,12 +56,15 @@ const BG_COLORS_BY_DARK_MODE_AND_CHAIN_ID: {
       'radial-gradient(100% 100% at 50% 0%, rgba(10, 41, 75, 0.7) 0%, rgba(0, 82, 255, .1) 40%, rgba(0, 82, 255, 0) 100%), rgb(13, 14, 14);',
     [ChainId.TAIKO_KATLA]:
       'radial-gradient(100% 100% at 50% 0%, rgba(10, 41, 75, 0.7) 0%, rgba(0, 82, 255, .1) 40%, rgba(0, 82, 255, 0) 100%), rgb(13, 14, 14);',
+    [ChainId.SCROLL_SEPOLIA]:
+      'radial-gradient(100% 93.36% at 0% 6.64%, rgba(120, 128, 247, 0.1) 0%, rgba(62, 62, 160, 0.1) 100%)',
   },
   light: {
     [ChainId.TAIKO_JOLNIR]:
       'radial-gradient(100% 100% at 50% 0%, rgba(0, 82, 255, 0.20) 0%, rgba(0, 82, 255, 0.08) 40.0%, rgba(252, 255, 82, 0.00) 100%), rgb(255, 255, 255)',
     [ChainId.TAIKO_KATLA]:
       'radial-gradient(100% 100% at 50% 0%, rgba(0, 82, 255, 0.20) 0%, rgba(0, 82, 255, 0.08) 40.0%, rgba(252, 255, 82, 0.00) 100%), rgb(255, 255, 255)',
+    [ChainId.SCROLL_SEPOLIA]: 'radial-gradient(182.71% 205.59% at 2.81% 7.69%,#EEE2D4FF 0%, #E4D5C3FF 100%)',
   },
 }
 
@@ -117,6 +121,7 @@ const StyledArrowUpRight = styled(ArrowUpRight)`
 const TEXT_COLORS: { [chainId in NetworkAlertChains]: string } = {
   [ChainId.TAIKO_JOLNIR]: '#e81899',
   [ChainId.TAIKO_KATLA]: '#e81899',
+  [ChainId.SCROLL_SEPOLIA]: 'rgba(113, 98, 124)',
 }
 
 function shouldShowAlert(chainId: number | undefined): chainId is NetworkAlertChains {

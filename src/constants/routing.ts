@@ -1,5 +1,6 @@
 // a list of tokens by chain
-import { ChainId, Currency, Token } from '@uniswap/sdk-core'
+import { Currency, Token } from '@uniswap/sdk-core'
+import { ChainId } from 'constants/chains'
 
 import {
   ARB,
@@ -15,7 +16,7 @@ import {
   DAI_BSC,
   DAI_OPTIMISM,
   DAI_POLYGON,
-  ETH_BSC,
+  ETH_BSC, GHO_SCROLL_SEPOLIA,
   HORSE_TAIKO_JOLNIR,
   HORSE_TAIKO_KATLA,
   nativeOnChain,
@@ -136,6 +137,11 @@ export const COMMON_BASES: ChainCurrencyList = {
     TTKO_TAIKO_KATLA,
     HORSE_TAIKO_KATLA,
     WETH_TAIKO_KATLA,
+  ],
+  [ChainId.SCROLL_SEPOLIA]: [
+    nativeOnChain(ChainId.SCROLL_SEPOLIA),
+    WRAPPED_NATIVE_CURRENCY[ChainId.SCROLL_SEPOLIA] as Token,
+    GHO_SCROLL_SEPOLIA,
   ],
 }
 

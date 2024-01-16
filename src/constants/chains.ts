@@ -1,4 +1,46 @@
-import { ChainId, SUPPORTED_CHAINS, SupportedChainsType } from '@uniswap/sdk-core'
+export enum ChainId {
+  MAINNET = 1,
+  GOERLI = 5,
+  SEPOLIA = 11155111,
+  OPTIMISM = 10,
+  OPTIMISM_GOERLI = 420,
+  ARBITRUM_ONE = 42161,
+  ARBITRUM_GOERLI = 421613,
+  POLYGON = 137,
+  POLYGON_MUMBAI = 80001,
+  CELO = 42220,
+  CELO_ALFAJORES = 44787,
+  BNB = 56,
+  AVALANCHE = 43114,
+  BASE_GOERLI = 84531,
+  BASE = 8453,
+  TAIKO_JOLNIR = 167007,
+  TAIKO_KATLA = 167008,
+  SCROLL_SEPOLIA = 534351,
+}
+
+export const SUPPORTED_CHAINS = [
+  ChainId.MAINNET,
+  ChainId.OPTIMISM,
+  ChainId.OPTIMISM_GOERLI,
+  ChainId.ARBITRUM_ONE,
+  ChainId.ARBITRUM_GOERLI,
+  ChainId.POLYGON,
+  ChainId.POLYGON_MUMBAI,
+  ChainId.GOERLI,
+  ChainId.SEPOLIA,
+  ChainId.CELO_ALFAJORES,
+  ChainId.CELO,
+  ChainId.BNB,
+  ChainId.AVALANCHE,
+  ChainId.BASE,
+  ChainId.BASE_GOERLI,
+  ChainId.TAIKO_JOLNIR,
+  ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
+]
+
+export type SupportedChainsType = (typeof SUPPORTED_CHAINS)[number]
 
 export const CHAIN_IDS_TO_NAMES = {
   [ChainId.MAINNET]: 'mainnet',
@@ -17,6 +59,7 @@ export const CHAIN_IDS_TO_NAMES = {
   [ChainId.BASE]: 'base',
   [ChainId.TAIKO_JOLNIR]: 'taiko-jolnir',
   [ChainId.TAIKO_KATLA]: 'taiko-katla',
+  [ChainId.SCROLL_SEPOLIA]: 'scroll_sepolia',
 } as const
 
 // Include ChainIds in this array if they are not supported by the UX yet, but are already in the SDK.
@@ -41,6 +84,7 @@ const NOT_YET_UX_SUPPORTED_CHAIN_IDS: number[] = [
 // TODO: include BASE_GOERLI when routing is implemented
 export type SupportedInterfaceChain = Exclude<SupportedChainsType, ChainId.BASE_GOERLI>
 
+// eslint-disable-next-line import/no-unused-modules
 export function isSupportedChain(
   chainId: number | null | undefined | ChainId,
   featureFlags?: Record<number, boolean>
@@ -73,6 +117,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   ChainId.BASE,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 /**
@@ -89,6 +134,7 @@ export const TESTNET_CHAIN_IDS = [
   ChainId.CELO_ALFAJORES,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 /**
@@ -120,6 +166,7 @@ export const L2_CHAIN_IDS = [
   ChainId.BASE,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 export type SupportedL2ChainId = (typeof L2_CHAIN_IDS)[number]
@@ -133,6 +180,7 @@ export function getChainPriority(chainId: ChainId): number {
   switch (chainId) {
     case ChainId.TAIKO_JOLNIR:
     case ChainId.TAIKO_KATLA:
+    case ChainId.SCROLL_SEPOLIA:
     case ChainId.MAINNET:
     case ChainId.GOERLI:
     case ChainId.SEPOLIA:

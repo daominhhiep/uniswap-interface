@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro'
 import { InterfacePageName, NFTEventName } from '@uniswap/analytics-events'
-import { ChainId } from '@uniswap/sdk-core'
 import { sendAnalyticsEvent, useTrace } from 'analytics'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { NftActivityType, NftMarketplace, OrderStatus } from 'graphql/data/__generated__/types-and-hooks'
@@ -36,6 +35,7 @@ import { shortenAddress } from 'utils'
 import { ExplorerDataType, getExplorerLink } from 'utils/getExplorerLink'
 
 import * as styles from './Activity.css'
+import {ChainId} from "../../../constants/chains";
 
 const AddressLink = styled(ExternalLink)`
   color: ${({ theme }) => theme.neutral1};
