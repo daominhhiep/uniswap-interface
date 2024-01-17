@@ -50,6 +50,7 @@ const DEFAULT_CHAINS = [
   ChainId.BASE,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ]
 
 type UseMultiChainPositionsData = { positions?: PositionInfo[]; loading: boolean }

@@ -23,6 +23,7 @@ export const FEE_AMOUNT_DETAIL: Record<
       ChainId.BASE,
       ChainId.TAIKO_JOLNIR, // ChainId.TAIKO_JOLNIR
       ChainId.TAIKO_KATLA, // ChainId.TAIKO_KATLA
+      ChainId.SCROLL_SEPOLIA, // ChainId.SCROLL_SEPOLIA
     ],
   },
   [FeeAmount.LOW]: {

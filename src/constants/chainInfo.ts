@@ -10,6 +10,7 @@ import baseSquareLogo from 'assets/svg/base_square_logo.svg'
 import bnbSquareLogoUrl from 'assets/svg/bnb_square_logo.svg'
 import bnbLogo from 'assets/svg/bnb-logo.svg'
 import celoLogo from 'assets/svg/celo_logo.svg'
+import scrollLogo from 'assets/svg/scroll_logo.svg'
 import celoSquareLogoUrl from 'assets/svg/celo_square_logo.svg'
 import optimismSquareLogoUrl from 'assets/svg/optimism_square_logo.svg'
 import optimismLogoUrl from 'assets/svg/optimistic_ethereum.svg'
@@ -20,7 +21,15 @@ import ms from 'ms'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, AVALANCHE_LIST, BASE_LIST, CELO_LIST, OPTIMISM_LIST, PLASMA_BNB_LIST } from './lists'
+import {
+  ARBITRUM_LIST,
+  AVALANCHE_LIST,
+  BASE_LIST,
+  CELO_LIST,
+  OPTIMISM_LIST,
+  PLASMA_BNB_LIST,
+  SCROLL_SEPOLIA_LIST
+} from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms(`12s`)
 
@@ -291,6 +300,21 @@ const CHAIN_INFO: ChainInfoMap = {
     squareLogoUrl: taikoLogo,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     color: darkTheme.chain_167008,
+  },
+  [ChainId.SCROLL_SEPOLIA]: {
+    networkType: NetworkType.L2,
+    docs: 'https://docs.uniswap.org/',
+    explorer: 'https://sepolia.scrollscan.dev/',
+    infoLink: 'https://info.uniswap.org/#/',
+    label: 'Scroll Sepolia',
+    logoUrl: scrollLogo,
+    nativeCurrency: { name: 'Scroll Sepolia Ether', symbol: 'ETH', decimals: 18 },
+    //TODO: Add Scroll Brand Color
+    color: darkTheme.chain_5,
+    blockWaitMsBeforeWarning: ms(`10m`),
+    bridge: 'https://sepolia.scroll.io/bridge',
+    defaultListUrl: SCROLL_SEPOLIA_LIST,
+    helpCenterUrl: 'https://help.uniswap.org/en/collections/3137787-uniswap-on-arbitrum',
   },
 } as const
 

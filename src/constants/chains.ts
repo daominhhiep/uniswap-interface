@@ -17,6 +17,7 @@ export const CHAIN_IDS_TO_NAMES = {
   [ChainId.BASE]: 'base',
   [ChainId.TAIKO_JOLNIR]: 'taiko-jolnir',
   [ChainId.TAIKO_KATLA]: 'taiko-katla',
+  [ChainId.SCROLL_SEPOLIA]: 'scroll_sepolia',
 } as const
 
 // Include ChainIds in this array if they are not supported by the UX yet, but are already in the SDK.
@@ -73,6 +74,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   ChainId.BASE,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 /**
@@ -89,6 +91,7 @@ export const TESTNET_CHAIN_IDS = [
   ChainId.CELO_ALFAJORES,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 /**
@@ -120,6 +123,7 @@ export const L2_CHAIN_IDS = [
   ChainId.BASE,
   ChainId.TAIKO_JOLNIR,
   ChainId.TAIKO_KATLA,
+  ChainId.SCROLL_SEPOLIA,
 ] as const
 
 export type SupportedL2ChainId = (typeof L2_CHAIN_IDS)[number]
@@ -133,6 +137,7 @@ export function getChainPriority(chainId: ChainId): number {
   switch (chainId) {
     case ChainId.TAIKO_JOLNIR:
     case ChainId.TAIKO_KATLA:
+    case ChainId.SCROLL_SEPOLIA:
     case ChainId.MAINNET:
     case ChainId.GOERLI:
     case ChainId.SEPOLIA:

@@ -9,6 +9,7 @@ import { ExternalLink, HideSmall } from 'theme'
 import { useDarkModeManager } from 'theme/components/ThemeToggle'
 
 import Column from '../Column'
+import { AutoRow } from '../Row'
 
 const L2Icon = styled.img`
   width: 24px;
@@ -43,6 +44,7 @@ const SHOULD_SHOW_ALERT = {
   // [ChainId.BASE]: true,
   [ChainId.TAIKO_JOLNIR]: true,
   [ChainId.TAIKO_KATLA]: true,
+  [ChainId.SCROLL_SEPOLIA]: true,
 }
 
 type NetworkAlertChains = keyof typeof SHOULD_SHOW_ALERT
@@ -55,12 +57,15 @@ const BG_COLORS_BY_DARK_MODE_AND_CHAIN_ID: {
       'radial-gradient(100% 100% at 50% 0%, rgba(10, 41, 75, 0.7) 0%, rgba(0, 82, 255, .1) 40%, rgba(0, 82, 255, 0) 100%), rgb(13, 14, 14);',
     [ChainId.TAIKO_KATLA]:
       'radial-gradient(100% 100% at 50% 0%, rgba(10, 41, 75, 0.7) 0%, rgba(0, 82, 255, .1) 40%, rgba(0, 82, 255, 0) 100%), rgb(13, 14, 14);',
+    [ChainId.SCROLL_SEPOLIA]:
+      'radial-gradient(100% 93.36% at 0% 6.64%, rgba(120, 128, 247, 0.1) 0%, rgba(62, 62, 160, 0.1) 100%)',
   },
   light: {
     [ChainId.TAIKO_JOLNIR]:
       'radial-gradient(100% 100% at 50% 0%, rgba(0, 82, 255, 0.20) 0%, rgba(0, 82, 255, 0.08) 40.0%, rgba(252, 255, 82, 0.00) 100%), rgb(255, 255, 255)',
     [ChainId.TAIKO_KATLA]:
       'radial-gradient(100% 100% at 50% 0%, rgba(0, 82, 255, 0.20) 0%, rgba(0, 82, 255, 0.08) 40.0%, rgba(252, 255, 82, 0.00) 100%), rgb(255, 255, 255)',
+    [ChainId.SCROLL_SEPOLIA]: 'radial-gradient(182.71% 205.59% at 2.81% 7.69%,#EEE2D4FF 0%, #E4D5C3FF 100%)',
   },
 }
 
@@ -117,6 +122,7 @@ const StyledArrowUpRight = styled(ArrowUpRight)`
 const TEXT_COLORS: { [chainId in NetworkAlertChains]: string } = {
   [ChainId.TAIKO_JOLNIR]: '#e81899',
   [ChainId.TAIKO_KATLA]: '#e81899',
+  [ChainId.SCROLL_SEPOLIA]: '#71627CFF',
 }
 
 function shouldShowAlert(chainId: number | undefined): chainId is NetworkAlertChains {
@@ -144,6 +150,22 @@ export function NetworkAlert() {
               </HideSmall>
             </BodyText>
             <StyledArrowUpRight color={darkMode ? textColor : '#e81899'} />
+          </LinkOutToBridge>
+        </ContentWrapper>
+        <ContentWrapper chainId={ChainId.SCROLL_SEPOLIA} darkMode={darkMode} logoUrl="">
+          <LinkOutToBridge href="https://snapshot.org/#/uniswap/proposal/0x5ad7208d9ccad93dbc96abc12bfeffcfe83e96b9782e5135727cdaaf494d70f3">
+            <BodyText color={darkMode ? textColor : 'black'}>
+              <AlertTriangle size={24} style={{ marginRight: '16px' }} />
+              <AutoRow>
+                <Header>
+                  <Trans>Intended for Demo Purposes Only</Trans>
+                </Header>
+                <HideSmall>
+                  <Trans>This is not an official Uniswap release.</Trans>
+                </HideSmall>
+              </AutoRow>
+            </BodyText>
+            <StyledArrowUpRight color={darkMode ? textColor : 'black'} />
           </LinkOutToBridge>
         </ContentWrapper>
       </RootWrapper>
@@ -188,6 +210,20 @@ export function NetworkAlert() {
             </HideSmall>
           </BodyText>
           <StyledArrowUpRight color={darkMode ? textColor : '#e81899'} />
+        </LinkOutToBridge>
+      </ContentWrapper>
+      <ContentWrapper chainId={chainId} darkMode={darkMode} logoUrl={logoUrl}>
+        <LinkOutToBridge href="https://snapshot.org/#/uniswap/proposal/0x5ad7208d9ccad93dbc96abc12bfeffcfe83e96b9782e5135727cdaaf494d70f3">
+          <BodyText color={textColor}>
+            {/* <L2Icon src={logoUrl} /> */}
+            <AlertTriangle size={24} style={{ marginRight: "16px" }} />
+            <AutoRow>
+              <Header>
+                <Trans>Intended for Demo Purposes Only</Trans>
+              </Header>
+            </AutoRow>
+          </BodyText>
+          <StyledArrowUpRight color={textColor} />
         </LinkOutToBridge>
       </ContentWrapper>
     </RootWrapper>

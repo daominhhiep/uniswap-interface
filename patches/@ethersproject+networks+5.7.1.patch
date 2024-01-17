@@ -1,5 +1,5 @@
 diff --git a/node_modules/@ethersproject/networks/lib.esm/index.js b/node_modules/@ethersproject/networks/lib.esm/index.js
-index 5c232b8..685d8f5 100644
+index 5c232b8..f6ad07d 100644
 --- a/node_modules/@ethersproject/networks/lib.esm/index.js
 +++ b/node_modules/@ethersproject/networks/lib.esm/index.js
 @@ -1,4 +1,5 @@
@@ -8,30 +8,32 @@ index 5c232b8..685d8f5 100644
  import { Logger } from "@ethersproject/logger";
  import { version } from "./_version";
  const logger = new Logger(version);
-@@ -173,6 +174,8 @@ const networks = {
+@@ -173,6 +174,9 @@ const networks = {
      "arbitrum-goerli": { chainId: 421613, name: "arbitrum-goerli" },
      bnb: { chainId: 56, name: "bnb" },
      bnbt: { chainId: 97, name: "bnbt" },
 +    taiko_jolnir: { chainId: 167007, name: "taiko_jolnir" },
 +    taiko_katla: { chainId: 167008, name: "taiko_katla" },
++    scroll_sepolia: { chainId: 534351, name: "scroll_sepolia" },
  };
  /**
   *  getNetwork
 diff --git a/node_modules/@ethersproject/networks/lib/index.js b/node_modules/@ethersproject/networks/lib/index.js
-index 693a671..ff90d77 100644
+index 693a671..96d783d 100644
 --- a/node_modules/@ethersproject/networks/lib/index.js
 +++ b/node_modules/@ethersproject/networks/lib/index.js
-@@ -175,6 +175,8 @@ var networks = {
+@@ -175,6 +175,9 @@ var networks = {
      "arbitrum-goerli": { chainId: 421613, name: "arbitrum-goerli" },
      bnb: { chainId: 56, name: "bnb" },
      bnbt: { chainId: 97, name: "bnbt" },
 +    taiko_jolnir: { chainId: 167007, name: "taiko_jolnir" },
 +    taiko_katla: { chainId: 167008, name: "taiko_katla" },
++    scroll_sepolia: { chainId: 534351, name: "scroll_sepolia" },
  };
  /**
   *  getNetwork
 diff --git a/node_modules/@ethersproject/networks/src.ts/index.ts b/node_modules/@ethersproject/networks/src.ts/index.ts
-index cb1b8e5..c75c7d4 100644
+index cb1b8e5..6495d10 100644
 --- a/node_modules/@ethersproject/networks/src.ts/index.ts
 +++ b/node_modules/@ethersproject/networks/src.ts/index.ts
 @@ -1,10 +1,12 @@
@@ -147,15 +149,16 @@ index cb1b8e5..c75c7d4 100644
          return etcDefaultProvider(url, network);
      };
  
-@@ -214,6 +216,7 @@ const networks: { [name: string]: Network } = {
+@@ -214,6 +216,8 @@ const networks: { [name: string]: Network } = {
  
      bnb: { chainId: 56, name: "bnb" },
      bnbt: { chainId: 97, name: "bnbt" },
 +    taiko: { chainId: 167007, name: "taiko" },
++    scroll_sepolia: { chainId: 534351, name: "scroll_sepolia" },
  }
  
  /**
-@@ -226,7 +229,7 @@ export function getNetwork(network: Networkish): Network {
+@@ -226,7 +230,7 @@ export function getNetwork(network: Networkish): Network {
      // No network (null)
      if (network == null) { return null; }
  
@@ -164,7 +167,7 @@ index cb1b8e5..c75c7d4 100644
          for (const name in networks) {
              const standard = networks[name];
              if (standard.chainId === network) {
-@@ -245,7 +248,7 @@ export function getNetwork(network: Networkish): Network {
+@@ -245,7 +249,7 @@ export function getNetwork(network: Networkish): Network {
          };
      }
  
@@ -173,7 +176,7 @@ index cb1b8e5..c75c7d4 100644
          const standard = networks[network];
          if (standard == null) { return null; }
          return {
-@@ -256,11 +259,11 @@ export function getNetwork(network: Networkish): Network {
+@@ -256,11 +260,11 @@ export function getNetwork(network: Networkish): Network {
          };
      }
  

@@ -74,4 +74,5 @@ export const RPC_PROVIDERS: { [key in SupportedInterfaceChain]: StaticJsonRpcPro
   [ChainId.BASE]: new AppJsonRpcProvider(ChainId.BASE),
   [ChainId.TAIKO_JOLNIR]: new AppJsonRpcProvider(ChainId.TAIKO_JOLNIR),
   [ChainId.TAIKO_KATLA]: new AppJsonRpcProvider(ChainId.TAIKO_KATLA),
+  [ChainId.SCROLL_SEPOLIA]: new AppJsonRpcProvider(ChainId.SCROLL_SEPOLIA),
 }

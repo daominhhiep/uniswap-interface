@@ -1,5 +1,4 @@
 import { ChainId, Currency, Ether, NativeCurrency, Token, UNI_ADDRESSES, WETH9 } from '@uniswap/sdk-core'
-
 import invariant from 'tiny-invariant'
 
 export const NATIVE_CHAIN_ID = 'NATIVE'
@@ -139,6 +138,30 @@ export const TTKO_TAIKO_KATLA = new Token(
 export const WETH_TAIKO_KATLA = new Token(
   ChainId.TAIKO_KATLA,
   '0x0011E559da84dde3f841e22dc33F3adbF184D84A',
+  18,
+  'WETH',
+  'WETH'
+)
+
+export const WETH_SCROLL_SEPOLIA = new Token(
+  ChainId.SCROLL_SEPOLIA,
+  '0x5300000000000000000000000000000000000004',
+  6,
+  'USDC',
+  'USDC'
+)
+
+export const GHO_SCROLL_SEPOLIA = new Token(
+  ChainId.SCROLL_SEPOLIA,
+  '0xD9692f1748aFEe00FACE2da35242417dd05a8615',
+  18,
+  'GHO',
+  'Gho Token'
+)
+
+export const USDC_SCROLL_SEPOLIA = new Token(
+  ChainId.SCROLL_SEPOLIA,
+  '0x319f8d747B0283F027717db61C424Bc41B7baE8c',
   18,
   'WETH',
   'WETH'
